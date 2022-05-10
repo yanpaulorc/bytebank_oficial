@@ -2,6 +2,7 @@ import 'package:bytebank_oficial/customs/theme.dart';
 import 'package:bytebank_oficial/database/dao/contato_dao.dart';
 import 'package:bytebank_oficial/models/contatos.dart';
 import 'package:bytebank_oficial/screens/contato_formulario.dart';
+import 'package:bytebank_oficial/screens/transaction_form.dart';
 import 'package:flutter/material.dart';
 
 class ContatoLista extends StatefulWidget {
@@ -19,7 +20,7 @@ class _ContatoListaState extends State<ContatoLista> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.primaryColor,
-        title: const Text('Contatos'),
+        title: const Text('Transfer'),
       ),
       body: FutureBuilder<List<Contatos>>(
         initialData: const [],
@@ -49,7 +50,12 @@ class _ContatoListaState extends State<ContatoLista> {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final Contatos contato = contatos[index];
-                  return _ContatoItem(contatos: contato);
+                  return _ContatoItem(
+                      contatos: contato,
+                      onClick: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => TransactionForm(contato)));
+                      });
                 },
                 itemCount: contatos.length,
               );
@@ -77,19 +83,21 @@ class _ContatoListaState extends State<ContatoLista> {
 
 class _ContatoItem extends StatelessWidget {
   final Contatos? contatos;
-
-  const _ContatoItem({Key? key, this.contatos}) : super(key: key);
+  final Function onClick;
+  const _ContatoItem({Key? key, this.contatos, required this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: () => onClick(),
         title: Text(
           contatos!.nome,
           style: const TextStyle(fontSize: 24),
         ),
         subtitle: Text(
-          contatos!.numeroConta,
+          contatos!.numeroConta.toString(),
           style: const TextStyle(fontSize: 16),
         ),
       ),

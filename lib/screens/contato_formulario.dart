@@ -47,7 +47,8 @@ class _ContatoFormularioState extends State<ContatoFormulario> {
                   onPressed: () {
                     final String nome = _nomeController.text;
                     final String numeroConta = _contaController.text;
-                    final Contatos novoContato = Contatos(0, nome, numeroConta);
+                    final Contatos novoContato =
+                        Contatos(0, nome, int.parse(numeroConta));
                     _dao.save(novoContato).then((id) => Navigator.pop(context));
                   },
                   child: const Text('Salvar'),

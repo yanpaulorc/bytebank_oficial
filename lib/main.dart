@@ -1,8 +1,10 @@
+import 'package:bytebank_oficial/components/transaction_auth_dialog.dart';
 import 'package:bytebank_oficial/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const BytebankApp());
+  // findAll().then((transactions) => print('new transactinos ${transactions}'));
 }
 
 class BytebankApp extends StatelessWidget {
